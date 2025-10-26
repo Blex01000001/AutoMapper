@@ -90,14 +90,11 @@ namespace AutoMapper
                     }
                     else if (dtoPprop.GetType().IsClass && prop.PropertyType.IsClass)
                     {
-                        //destType -> sourceType
-
-                        var method =   typeof(Mapper).GetMethod("Map",BindingFlags.Static | BindingFlags.Public);
-
+                        //StatusDao -> StatusDto
+                        //物件 -> 物件
+                        var method = typeof(Mapper).GetMethod("Map",BindingFlags.Static | BindingFlags.Public);
                         var mapperMethod = method.MakeGenericMethod(dtoPprop.PropertyType);
-                        mapperMethod.Invoke(null,new object[] { daoValue});
-
-
+                        dtovalue = mapperMethod.Invoke(null, new object[] { daoValue});
                     }
                 }
                 // Convert.ChangeType(dtovalue,)
@@ -113,6 +110,9 @@ namespace AutoMapper
                 //2.研究看看 enum 對轉 (能處 enum 轉數字 / 數字轉 enum,再進階一點，字串轉enum)
                 //20251019
                 //3.list對轉
+                //20251026
+                //4.Array對轉
+                //5.物件轉物件
 
                 dtoPprop.SetValue(dto, dtovalue);
             }

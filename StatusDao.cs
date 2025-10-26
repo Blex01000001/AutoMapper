@@ -16,7 +16,7 @@ namespace AutoMapper
         {
             id = 0;
             status = 0;
-            name = "testname";
+            name = "987";
             description = new List<string> { "1", "2", "3" };
         }
 

@@ -46,11 +46,16 @@
     <Compile Include="CardDAO.cs" />
     <Compile Include="CardDTO.cs" />
     <Compile Include="Enums\BarberStatus.cs" />
+    <Compile Include="Enums\PropType.cs" />
+    <Compile Include="Extensions\TypeExtension.cs" />
     <Compile Include="Mapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusDao.cs" />
     <Compile Include="StatusDto.cs" />
+    <Compile Include="TypesMapping\Array.cs" />
+    <Compile Include="TypesMapping\ATypesMapping.cs" />
+    <Compile Include="TypesMapping\Enum.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

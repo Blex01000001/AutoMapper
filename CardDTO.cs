@@ -19,7 +19,7 @@ namespace AutoMapper
         public BarberStatus pro { get; set; }
         public List<int> NumConcurrentBag { get; set; }
         public int[] StringDes { get; set; }
-        public StatusDto Status { get; set; }
+        public List<StatusDto> Status { get; set; }
 
 
         public CardDTO()

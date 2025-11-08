@@ -167,7 +167,6 @@ namespace AutoMapper
         {
             if(sourceValue.GetType() == targetType) return sourceValue;
 
-
             PropType propType = targetType.GetPropType();
 
             Type type = Type.GetType($"AutoMapper.TypesMapping.{propType}");

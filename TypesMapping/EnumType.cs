@@ -10,7 +10,7 @@ namespace AutoMapper.TypesMapping
     {
         public override object ConvertType(object sourceValue, Type targetType)
         {
-            throw new NotImplementedException();
+            return Enum.Parse(targetType, sourceValue.ToString());
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,11 @@ namespace AutoMapper.TypesMapping
     {
         public override object ConvertType(object sourceValue, Type targetType)
         {
-            throw new NotImplementedException();
+            object targetValue;
+            var method = typeof(Mapper).GetMethod("NewMap", BindingFlags.Static | BindingFlags.Public);
+            var mapperMethod = method.MakeGenericMethod(targetType);
+            targetValue = mapperMethod.Invoke(null, new object[] { sourceValue });
+            return targetValue;
         }
     }
 }

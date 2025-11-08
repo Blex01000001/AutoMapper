@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace AutoMapper.TypesMapping
 {
-    abstract class ATypesMapping
+    internal class ArrayType : ATypesMapping
     {
-        public ATypesMapping()
+        public override object ConvertType(object sourceValue, Type targetType)
         {
-
+            throw new NotImplementedException();
         }
-        public abstract object ConvertType(object sourceValue, Type targetType);
     }
 }

@@ -173,6 +173,7 @@ namespace AutoMapper
             Type type = Type.GetType($"AutoMapper.TypesMapping.{propType}");
             ATypesMapping typesMapping = (ATypesMapping)Activator.CreateInstance(type);
             //用反射找方法去執行轉換
+            return typesMapping.ConvertType(sourceValue, targetType);
 
         }
 

@@ -14,21 +14,21 @@ namespace AutoMapper.Extensions
         {
             if (type.IsArray)
             {
-                return PropType.Array;
+                return PropType.ArrayType;
             }
             else if (type.IsEnum)
             {
-                return PropType.Enum;
+                return PropType.EnumType;
             }
             else if (type.IsClass && type != typeof(string))
             {
-                return PropType.Object;
+                return PropType.ObjectType;
             }
-            else if (type.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+            else if (type.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>)) && type != typeof(string))
             {
-                return PropType.Enumerable;
+                return PropType.EnumerableType;
             }
-                return PropType.Basic;
+                return PropType.BasicType;
         }
     }
 }

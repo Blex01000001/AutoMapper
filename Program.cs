@@ -19,7 +19,7 @@ namespace AutoMapper
             int value = (int)parse.Invoke(null, new object[] { str });
 
             CardDAO dao = new CardDAO();
-            CardDTO dto = Mapper.Map<CardDTO>(dao);
+            CardDTO dto = Mapper.NewMap<CardDTO>(dao);
 
             foreach (PropertyInfo prop in typeof(CardDTO).GetProperties())
             {

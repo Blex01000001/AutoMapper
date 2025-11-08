@@ -22,7 +22,7 @@ namespace AutoMapper
 
         public CardDAO()
         {
-            ID = "0";
+            ID = "5566.4";
             Name = "Empty";
             Describetion = "none";
             Qty = 123;

@@ -8,10 +8,10 @@ namespace AutoMapper.Enums
 {
     public enum PropType
     {
-        BasicType,
-        EnumType,
-        ObjectType,
         ArrayType,
-        EnumerableType
+        BasicType,
+        EnumerableType,
+        EnumType,
+        ObjectType
     }
 }

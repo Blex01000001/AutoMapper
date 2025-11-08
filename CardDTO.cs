@@ -17,7 +17,7 @@ namespace AutoMapper
         //public int Num { get; set; }
         public BarberStatus BarStatus { get; set; }
         //public BarberStatus pro { get; set; }
-        //public List<int> NumConcurrentBag { get; set; }
+        public List<int> NumConcurrentBag { get; set; }
         public int[] StringDes { get; set; }
         //public List<StatusDto> Status { get; set; }
 

@@ -20,13 +20,13 @@ namespace AutoMapper.Extensions
             {
                 return PropType.EnumType;
             }
-            else if (type.IsClass && type != typeof(string))
-            {
-                return PropType.ObjectType;
-            }
             else if (type.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>)) && type != typeof(string))
             {
                 return PropType.EnumerableType;
+            }
+            else if (type.IsClass && type != typeof(string))
+            {
+                return PropType.ObjectType;
             }
                 return PropType.BasicType;
         }

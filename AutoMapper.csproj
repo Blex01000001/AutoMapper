@@ -56,7 +56,9 @@
     <Compile Include="TypesMapping\ArrayType.cs" />
     <Compile Include="TypesMapping\ATypesMapping.cs" />
     <Compile Include="TypesMapping\BasicType.cs" />
+    <Compile Include="TypesMapping\EnumerableType.cs" />
     <Compile Include="TypesMapping\EnumType.cs" />
+    <Compile Include="TypesMapping\ObjectType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -23,14 +23,12 @@ namespace AutoMapper.TypesMapping
             MethodInfo methodInfo;
             if (argument == typeof(int))
             {
-                Console.WriteLine("methodInfo Parse");
                 methodInfo = argument.GetMethod("Parse", new Type[] { sourceType });
             }
             else
             {
                 //Mapper.Map
-                Console.WriteLine("methodInfo Map");
-                var method = typeof(Mapper).GetMethod("Map", BindingFlags.Static | BindingFlags.Public);
+                var method = typeof(Mapper).GetMethod("NewMap", BindingFlags.Static | BindingFlags.Public);
                 methodInfo = method.MakeGenericMethod(argument);
             }
 

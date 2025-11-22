@@ -47,6 +47,7 @@
     <Compile Include="CardDTO.cs" />
     <Compile Include="Enums\BarberStatus.cs" />
     <Compile Include="Enums\PropType.cs" />
+    <Compile Include="Extensions\QuickSort.cs" />
     <Compile Include="Extensions\TypeExtension.cs" />
     <Compile Include="Mapper.cs" />
     <Compile Include="Program.cs" />

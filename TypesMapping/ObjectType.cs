@@ -13,7 +13,7 @@ namespace AutoMapper.TypesMapping
         {
             object targetValue;
             var method = typeof(Mapper).GetMethod("NewMap", BindingFlags.Static | BindingFlags.Public);
-            var mapperMethod = method.MakeGenericMethod(targetType);//泛型方法須指定類型
+            var mapperMethod = method.MakeGenericMethod(targetType,null);//泛型方法須指定類型
             targetValue = mapperMethod.Invoke(null, new object[] { sourceValue });
             return targetValue;
         }

@@ -29,7 +29,7 @@ namespace AutoMapper.TypesMapping
             {
                 //Mapper.Map
                 var method = typeof(Mapper).GetMethod("NewMap", BindingFlags.Static | BindingFlags.Public);
-                methodInfo = method.MakeGenericMethod(argument);
+                methodInfo = method.MakeGenericMethod(argument, null);
             }
 
             var targetListType = typeDefinition.MakeGenericType(argument);

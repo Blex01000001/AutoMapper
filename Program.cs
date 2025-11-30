@@ -22,27 +22,41 @@ namespace AutoMapper
             //MethodInfo parse = typeof(int).GetMethod("Parse", new Type[] { typeof(string) });
             //int value = (int)parse.Invoke(null, new object[] { str });
 
-            //CardDAO dao = new CardDAO();
-            //CardDTO dto = Mapper.NewMap<CardDTO>(dao);
+            CardDAO dao = new CardDAO();
+            CardDTO dto = Mapper.NewMap<CardDTO, CardDAO>(dao, cfg =>
+            {
+                cfg.ForMember(x => x.qty, y => y.Qty)
+                    .ForMember(x => x.Describetion, y => y.desc)
+                    .ForMember(x => x.Name, y => y.name);
+                //.ForMember(x => int.Parse(x.Describetion), y => y.Qty)
+                //.ForMember(x => x.ID, y => y.Describetion);
 
-            //foreach (PropertyInfo prop in typeof(CardDTO).GetProperties())
-            //{
-            //    var dtovalue = prop.GetValue(dto);
-            //    if (dtovalue.GetType() != typeof(string) && dtovalue is IEnumerable)
-            //    {
-            //        Console.Write($"{prop.Name}:");
-            //        foreach (var item in (IEnumerable)dtovalue)
-            //        {
-            //            Console.Write($"{item} ");
-            //        }
-            //        Console.Write($"\n");
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine($"{prop.Name}:{dtovalue}");
-            //    }
+            });
 
-            //}
+
+            Func<CardDAO, int> func = x => 20;
+
+            int num = func(dao);
+
+
+            foreach (PropertyInfo prop in typeof(CardDTO).GetProperties())
+            {
+                var dtovalue = prop.GetValue(dto);
+                if (dtovalue.GetType() != typeof(string) && dtovalue is IEnumerable)
+                {
+                    Console.Write($"{prop.Name}:");
+                    foreach (var item in (IEnumerable)dtovalue)
+                    {
+                        Console.Write($"{item} ");
+                    }
+                    Console.Write($"\n");
+                }
+                else
+                {
+                    Console.WriteLine($"{prop.Name}:{dtovalue}");
+                }
+
+            }
             //IEnumerable<int> obj;
 
 
@@ -111,18 +125,18 @@ namespace AutoMapper
 
             List<CardDAO> cards = new List<CardDAO>()
             {
-                new CardDAO(){Qty = 40},
-                new CardDAO(){Qty = 99},
-                new CardDAO(){Qty = 70},
-                new CardDAO(){Qty = 20},
-                new CardDAO(){Qty = 0},
-                new CardDAO(){Qty = 100},
-                new CardDAO(){Qty = 30},
+                //new CardDAO(){Qty = 40},
+                //new CardDAO(){Qty = 99},
+                //new CardDAO(){Qty = 70},
+                //new CardDAO(){Qty = 20},
+                //new CardDAO(){Qty = 0},
+                //new CardDAO(){Qty = 100},
+                //new CardDAO(){Qty = 30},
             };
 
             //mapper.ForMemeber(x=> x.ProductID,x=> int.Parse(x.pro))
             DateTime now = DateTime.Now;
-            List<CardDAO> filterCards = FilterCards(cards, x =>  x.Qty*2 > x.Qty+10 && int.Parse(x.ID) %10==0 ? 100:0);
+            //List<CardDAO> filterCards = FilterCards(cards, x => x.Qty * 2 > x.Qty + 10 && int.Parse(x.ID) % 10 == 0 ? 100 : 0);
             //List<CardDAO> sortedCards = SortCards(cards, x => x.Qty);
 
             //foreach (var item in sortedCards)
@@ -143,7 +157,7 @@ namespace AutoMapper
             //用快速排序來排序
             //List<CardDAO> sortedCards = new List<CardDAO>();
             //ParameterExpression param = Expression.Parameter(typeof(T), "x");
-            
+
             MemberExpression memberBody = (MemberExpression)sortProp.Body;
             string memberName = memberBody.Member.Name;
 
@@ -153,8 +167,18 @@ namespace AutoMapper
         }
         static List<CardDAO> FilterCards<T>(List<CardDAO> cards, Expression<Func<CardDAO, T>> filter)
         {
-            //寫完Binary Member
-            if (filter.Body is ConditionalExpression)
+            if (filter.Body is MemberExpression member)
+            {
+                // x => x.Qty
+                string propName = member.Member.Name;
+                var value = typeof(T).GetProperty(propName).GetValue(cards[0]);
+
+            }
+            else if (filter.Body is BinaryExpression bin)
+            {
+                var temp = filter.Compile().Invoke(cards[0]);
+            }
+            else if (filter.Body is ConditionalExpression)
             {
                 var temp = filter.Compile().Invoke(cards[0]);
                 //遞迴晚點寫

@@ -8,10 +8,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper.ExpressionsMapping;
 
 namespace AutoMapper
 {
@@ -147,11 +149,15 @@ namespace AutoMapper
 
 
 
-        public static T NewMap<T>(object dao) where T : new()
+        public static TDestination NewMap<TDestination, TSource>(
+            TSource dao, 
+            Action<MappingExpression<TDestination, TSource>> cfg = null
+            ) where TDestination : new()
         {
             PropertyInfo[] daoProps = dao.GetType().GetProperties();
-            T dto = new T();
+            TDestination dto = new TDestination();
 
+            #region 名稱相同
             foreach (PropertyInfo sourceProp in daoProps)
             {
                 var sourceValue = sourceProp.GetValue(dao);
@@ -160,12 +166,40 @@ namespace AutoMapper
                 var targetValue = Convert(sourceValue, targetProp.PropertyType);
                 targetProp.SetValue(dto, targetValue);
             }
+            #endregion
+
+            #region 指定名稱
+            if (cfg != null)
+            {
+                MappingExpression<TDestination, TSource> mappingExpression = new MappingExpression<TDestination, TSource>();
+                cfg?.Invoke(mappingExpression);
+
+                foreach(var item in mappingExpression.propNameKeyValue)
+                {
+                    // 基本架構
+                    // 先做member constant
+                    // 遞迴晚點
+                    Expression selfExp = item.Value.SelfExpression;
+                    ExpressionsType expType = item.Value.ExpressionsType;
+                    Type type = Type.GetType($"AutoMapper.ExpressionsMapping.{expType}");
+                    BaseExpression baseExpression = (BaseExpression)Activator.CreateInstance(type);
+
+                    var targetValue = baseExpression.GetValue(selfExp, dao);
+                    PropertyInfo targetPropertyInfo = item.Key;
+                    var targetValue2 = Convert(targetValue, targetPropertyInfo.PropertyType);
+                    targetPropertyInfo.SetValue(dto, targetValue2);
+
+                }
+            }
+            #endregion
+
+
             return dto;
         }
 
-        public static object Convert(object sourceValue,Type targetType)
+        public static object Convert(object sourceValue, Type targetType)
         {
-            if(sourceValue.GetType() == targetType) return sourceValue;
+            if (sourceValue.GetType() == targetType) return sourceValue;
 
             PropType propType = targetType.GetPropType();
 
@@ -177,7 +211,6 @@ namespace AutoMapper
         }
 
 
-      
 
     }
 }

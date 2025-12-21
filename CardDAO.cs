@@ -13,7 +13,7 @@ namespace AutoMapper
         public string ID { get; set; }
         public string Name { get; set; }
         public string qty { get; set; }
-        public string Describetion { get; set; }
+        public int Describetion { get; set; }
         //public int BarStatus { get; set; }
         //public string pro { get; set; }
         //public ConcurrentBag<string> NumConcurrentBag { get; set; }
@@ -24,8 +24,8 @@ namespace AutoMapper
         {
             ID = "5566";
             Name = "John";
-            Describetion = "Describetion Describetion Describetion";
             qty = "250";
+            Describetion = 120;
             //BarStatus = 0;
             //pro = "Cutting";
             //NumConcurrentBag = new ConcurrentBag<string>() { "1", "2", "3", "4", "5" };

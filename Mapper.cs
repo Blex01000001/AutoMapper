@@ -176,15 +176,15 @@ namespace AutoMapper
 
                 foreach(var item in mappingExpression.propNameKeyValue)
                 {
-                    // 基本架構
-                    // 先做member constant
-                    // 遞迴晚點
+                    // 遞迴寫完
+                    // 參考Conditional MethodCall
                     Expression selfExp = item.Value.SelfExpression;
                     ExpressionsType expType = item.Value.ExpressionsType;
                     Type type = Type.GetType($"AutoMapper.ExpressionsMapping.{expType}");
                     BaseExpression baseExpression = (BaseExpression)Activator.CreateInstance(type);
 
                     var targetValue = baseExpression.GetValue(selfExp, dao);
+                    Console.WriteLine($"\nExpressionsType: {expType} targetValue: {targetValue}");
                     PropertyInfo targetPropertyInfo = item.Key;
                     var targetValue2 = Convert(targetValue, targetPropertyInfo.PropertyType);
                     targetPropertyInfo.SetValue(dto, targetValue2);

@@ -4,14 +4,16 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using LinqExp = System.Linq.Expressions;
 
 namespace AutoMapper.ExpressionsMapping
 {
-    public class BinaryType : BaseExpression
+    public class ConstantExpression : BaseExpression
     {
         public override object GetValue(Expression expression, object sourceObj)
         {
-            throw new NotImplementedException();
+            LinqExp.ConstantExpression constantExpression = expression as LinqExp.ConstantExpression;
+            return constantExpression.Value;
         }
     }
 }

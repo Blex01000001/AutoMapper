@@ -12,8 +12,8 @@ namespace AutoMapper
     {
         public int ID { get; set; }
         public string name { get; set; }
-        public string desc { get; set; }
         public int Qty { get; set; }
+        public int desc { get; set; }
         //public int Num { get; set; }
         //public BarberStatus BarStatus { get; set; }
         //public BarberStatus pro { get; set; }

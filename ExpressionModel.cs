@@ -18,5 +18,7 @@ namespace AutoMapper
             this.SelfExpression = selfExpression;
             this.ExpressionsType = expressionsType;
         }
+
+
     }
 }

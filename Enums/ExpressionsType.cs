@@ -8,11 +8,12 @@ namespace AutoMapper.Enums
 {
     public enum ExpressionsType
     {
-        MemberType,
+        MemberExpression,
         BinaryExpression,
         ConditionalExpression,
         ConstantExpression,
         MethodCallExpression,
-        UnaryExpression
+        UnaryExpression,
+        ParameterExpression
     }
 }

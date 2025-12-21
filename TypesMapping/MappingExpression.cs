@@ -24,14 +24,14 @@ namespace AutoMapper.TypesMapping
 
             if (expSource.Body is MemberExpression sourceMemberExp) // 成員存取
             {
-                propNameKeyValue.Add(destProperty, new ExpressionModel(sourceMemberExp, Enums.ExpressionsType.MemberType));
+                propNameKeyValue.Add(destProperty, new ExpressionModel(sourceMemberExp, Enums.ExpressionsType.MemberExpression));
             }
             else if (expSource.Body is BinaryExpression sourceBinaryExp) // 二元運算子 (&&, ||, <, ==, <=)
             {
                 var left = sourceBinaryExp.Left;
                 var right = sourceBinaryExp.Right;
                 // 接著遞迴
-                //propNameKeyValue.Add(destProperty, new ExpressionModel(sourceBinaryExp, Enums.ExpressionsType.MemberExpression));
+                propNameKeyValue.Add(destProperty, new ExpressionModel(sourceBinaryExp, Enums.ExpressionsType.BinaryExpression));
 
             }
             else if (expSource.Body is ConditionalExpression sourceConditionalExp) // 條件表達式 (?:)
@@ -40,24 +40,24 @@ namespace AutoMapper.TypesMapping
                 var IfTrue = sourceConditionalExp.IfTrue;
                 var IfFalse = sourceConditionalExp.IfFalse;
                 // 接著遞迴
-                //propNameKeyValue.Add(destProperty, new ExpressionModel(sourceConditionalExp, Enums.ExpressionsType.MemberExpression));
+                propNameKeyValue.Add(destProperty, new ExpressionModel(sourceConditionalExp, Enums.ExpressionsType.ConditionalExpression));
             }
             else if (expSource.Body is ConstantExpression sourceConstantExp) // 常數
             {
-                //propNameKeyValue.Add(destProperty, new ExpressionModel(sourceConstantExp, Enums.ExpressionsType.ConditionalExpression));
+                propNameKeyValue.Add(destProperty, new ExpressionModel(sourceConstantExp, Enums.ExpressionsType.ConstantExpression));
             }
             else if (expSource.Body is MethodCallExpression sourceMethodCallExp) // 方法呼叫
             {
                 var obj = sourceMethodCallExp.Object;
                 var arg = sourceMethodCallExp.Arguments.ToArray();
                 // 接著遞迴
-                //propNameKeyValue.Add(destProperty, new ExpressionModel(sourceMethodCallExp, Enums.ExpressionsType.ConditionalExpression));
+                propNameKeyValue.Add(destProperty, new ExpressionModel(sourceMethodCallExp, Enums.ExpressionsType.MethodCallExpression));
             }
             else if (expSource.Body is UnaryExpression sourceUnaryExp) // 一元運算子 (!)
             {
                 var body = sourceUnaryExp.Operand;
                 // 接著遞迴
-                //propNameKeyValue.Add(destProperty, new ExpressionModel(sourceUnaryExp, Enums.ExpressionsType.UnaryExpression));
+                propNameKeyValue.Add(destProperty, new ExpressionModel(sourceUnaryExp, Enums.ExpressionsType.UnaryExpression));
             }
             return this;
         }

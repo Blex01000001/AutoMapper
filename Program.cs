@@ -21,14 +21,16 @@ namespace AutoMapper
             //string str = "200";
             //MethodInfo parse = typeof(int).GetMethod("Parse", new Type[] { typeof(string) });
             //int value = (int)parse.Invoke(null, new object[] { str });
-
+            int a = 113;
             CardDAO dao = new CardDAO();
             CardDTO dto = Mapper.NewMap<CardDTO, CardDAO>(dao, cfg =>
             {
                 cfg.ForMember(x => x.qty, y => y.Qty)
-                    .ForMember(x => x.Describetion, y => y.desc)
-                    .ForMember(x => x.Name, y => y.name);
-                //.ForMember(x => int.Parse(x.Describetion), y => y.Qty)
+                    .ForMember(x => x.Name, y => y.name)
+                    //.ForMember(x => !(x.Describetion > 100) ? int.Parse("100") : 0, y => y.desc)
+                    .ForMember(x => x.Describetion + a, y => y.desc);
+
+                //.ForMember(x => x.Describetion, y => y.desc)
                 //.ForMember(x => x.ID, y => y.Describetion);
 
             });
